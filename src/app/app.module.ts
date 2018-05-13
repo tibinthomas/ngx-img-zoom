@@ -3,12 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
+// Lib imports
+import { NgxImgZoomModule } from 'ngx-img-zoom';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgxImgZoomModule
   ],
   providers: [],
   bootstrap: [AppComponent]
