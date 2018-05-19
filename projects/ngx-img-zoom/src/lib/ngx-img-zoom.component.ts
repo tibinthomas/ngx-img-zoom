@@ -1,15 +1,23 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
-
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { zoomOut } from 'ng-animate';
+import { zoomIn } from 'ng-animate';
 
 @Component({
   selector: 'ngx-img-zoom',
   templateUrl: './ngx-img-zoom.component.html',
-  styleUrls: ['./ngx-img-zoom.component.css']
+  styleUrls: ['./ngx-img-zoom.component.css'],
+  animations: [
+    trigger('zoomIn', [transition('* => *', useAnimation(zoomIn))]),
+    trigger('zoomOut', [transition('* => *', useAnimation(zoomOut))])
+  ]
 })
 export class NgxImgZoomComponent implements OnInit {
 
-  img; lens; result; cx; cy; container; 
+  img; lens; result; cx; cy; container;
   hide = true;
+  triggerAnimationIn = false;
+  triggerAnimationOut = false;
 
   constructor(private renderer: Renderer2, private el: ElementRef) { }
 
@@ -79,16 +87,18 @@ export class NgxImgZoomComponent implements OnInit {
       y = pos.y - (this.lens.offsetHeight / 2);
       /*prevent the lens from being positioned outside the image:*/
       if (x > this.img.width - this.lens.offsetWidth) { x = this.img.width - this.lens.offsetWidth;
-         this.hide = true;
+         this.hide = true; this.triggerAnimationIn = false; this.triggerAnimationOut = true;
            this.renderer.setStyle(this.lens, "visibility", "hidden");
-         } else { 
+         } else {
+           this.triggerAnimationIn = true;
+           this.triggerAnimationOut = false;
            this.hide = false;
            this.renderer.setStyle(this.lens, "visibility", "visible");
 
            }
-      if (x < 0) {x = 0; this.hide = true; this.renderer.setStyle(this.lens, "visibility", "hidden");}
+      if (x < 0) {x = 0; this.hide = true; this.triggerAnimationIn = false; this.renderer.setStyle(this.lens, "visibility", "hidden");}
       if (y > this.img.height - this.lens.offsetHeight) {y = this.img.height - this.lens.offsetHeight;
-         this.hide = true;
+         this.hide = true; this.triggerAnimationIn = false; this.triggerAnimationOut = true;
          this.renderer.setStyle(this.lens, "visibility", "hidden");
         }
       if (y < 0) {y = 0; this.hide = true;this.renderer.setStyle(this.lens, "visibility", "hidden");}
