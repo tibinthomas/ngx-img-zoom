@@ -1,8 +1,11 @@
 {
   "name": "ngx-img-zoom",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "peerDependencies": {
     "@angular/common": "^5.2.0",
-    "@angular/core": "^5.2.0"
+    "@angular/core": "^5.2.0",
+    "@angular/platform-browser": "^5.2.0",
+    "@angular/animations": "^5.2.0",
+    "ng-animate": "^0.3.1"
   }
 }
