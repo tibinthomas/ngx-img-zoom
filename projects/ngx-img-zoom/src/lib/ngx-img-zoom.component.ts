@@ -15,6 +15,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   img; lens; result; cx; cy; container;
   hide = true;
   _triggerAnimationIn = false;
+  notFirstTime = false;
 
   constructor(private renderer: Renderer2, private el: ElementRef) { }
 
@@ -22,13 +23,21 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   @ViewChild('result') resultElmRef: ElementRef;
   @ViewChild('container') containerElmRef: ElementRef;
 
-
-  @Input() imgSrc: string;
   @Input() imgStyle = 'width:300px; height:300px';
   @Input() resultStyle = 'width:300px; height:300px';
   @Input() lensStyle = 'width:30px; height:30px';
   @Input() containerStyle = 'position: absolute';
   @Input() animation = false;
+  imgSrc;
+
+  @Input('imgSrc') set _imgSrc(val) {
+    this.imgSrc = val;
+    if (this.notFirstTime === true) {
+      this.renderer.setStyle(this.result, 'backgroundImage', "url('" + val + "')");
+    }
+    this.notFirstTime = true;
+    // this.renderer.setStyle(this.result, 'backgroundImage', val);
+  }
 
   ngOnInit() {
   }
@@ -62,7 +71,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     this.cy = this.result.offsetHeight / this.lens.offsetHeight;
 
     /*set background properties for the result DIV:*/
-    this.renderer.setStyle(this.result, 'backgroundImage', "url('" + this.img.src + "')");
+    this.renderer.setStyle(this.result, 'backgroundImage', "url('" + this.img + "')");
     this.renderer.setStyle(this.result, 'backgroundSize', (this.img.width * this.cx) + 'px ' + (this.img.height * this.cy) + 'px');
     // this.renderer.setStyle(this.img.parentElement, 'position', 'relative')
 
@@ -138,6 +147,5 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
       y = y - window.pageYOffset;
       return {x : x, y : y};
     }
-
 
 }

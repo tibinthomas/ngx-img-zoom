@@ -1,6 +1,6 @@
 {
   "name": "ngx-img-zoom",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^5.2.0",
     "@angular/core": "^5.2.0",
