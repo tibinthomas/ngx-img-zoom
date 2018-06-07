@@ -1,14 +1,10 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { trigger, transition, useAnimation } from '@angular/animations';
-import { zoomIn } from 'ng-animate/lib/zooming';
 
 @Component({
   selector: 'ngx-img-zoom',
   templateUrl: './ngx-img-zoom.component.html',
   styleUrls: ['./ngx-img-zoom.component.css'],
-  animations: [
-    trigger('zoomIn', [transition('* => *', useAnimation(zoomIn))])
-  ]
 })
 export class NgxImgZoomComponent implements OnInit, AfterViewInit {
 
@@ -27,7 +23,6 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   @Input() resultStyle = 'width:300px; height:300px';
   @Input() lensStyle = 'width:30px; height:30px';
   @Input() containerStyle = 'position: absolute';
-  @Input() animation = false;
   imgSrc;
 
   @Input('imgSrc') set _imgSrc(val) {
@@ -54,8 +49,6 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     this.renderer.setStyle(this.lens, 'visibility', 'hidden');
   }
 
-
-  triggerAnimationIn() { this._triggerAnimationIn = !this._triggerAnimationIn; }
 
   imageZoom() {
     /*create lens:*/
@@ -102,9 +95,6 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
         this.hide = true;
         this.renderer.setStyle(this.lens, 'visibility', 'hidden');
       } else {
-        if (this.animation === true) {
-        this.triggerAnimationIn();
-        }
         this.hide = false;
         this.renderer.setStyle(this.lens, 'visibility', 'visible');
       }
