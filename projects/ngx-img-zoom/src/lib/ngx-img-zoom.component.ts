@@ -71,7 +71,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     this.cy = this.result.offsetHeight / this.lens.offsetHeight;
 
     /*set background properties for the result DIV:*/
-    this.renderer.setStyle(this.result, 'backgroundImage', "url('" + this.img + "')");
+    this.renderer.setStyle(this.result, 'backgroundImage', "url('" + this.imgSrc + "')");
     this.renderer.setStyle(this.result, 'backgroundSize', (this.img.width * this.cx) + 'px ' + (this.img.height * this.cy) + 'px');
     // this.renderer.setStyle(this.img.parentElement, 'position', 'relative')
 
