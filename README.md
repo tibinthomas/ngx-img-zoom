@@ -5,7 +5,7 @@
 Still in early development, more features are planned and incoming. Should be in a working 
 state right now but it's not tested in lots of different setups yet.
 
-(Comming soon) Demonstration of available features available [here](https://wittlock.github.io/ngx-image-zoom/).
+(Comming soon) Demonstration of available features available [here](http://demo.purchasecommerce.com/).
 
 ## About
 
