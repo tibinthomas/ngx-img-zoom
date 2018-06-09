@@ -1,10 +1,26 @@
 {
   "name": "ngx-img-zoom",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "peerDependencies": {
     "@angular/common": "^5.2.0",
     "@angular/core": "^5.2.0",
     "@angular/platform-browser": "^5.2.0"
-
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/tibinthomas/ngx-img-zoom"
+},
+"author": {
+    "name": "Tibin Thomas",
+    "email": "tibinthomas@outlook.com"
+},
+"keywords": [
+    "angular5",
+    "angular5 component",
+    "image zoom"
+],
+"license": "MIT",
+"bugs": {
+    "url": "https://www.github.com/tibinthomas/ngx-img-zoom/issues"
+}
 }
