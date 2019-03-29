@@ -1,5 +1,6 @@
 <ngx-img-zoom class="center"
-    [imgSrc]="imgSrc" 
+    [zoomImageSrc]="zoomImageSrc"
+    [previewImageSrc]="previewImageSrc"
     [imgStyle]="'width:400px; height:400px'" 
     [resultStyle]="'width:300px; height:300px'"
     [lensStyle]="'width:50px; height:60px'"
@@ -61,20 +62,7 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <button (click)="imgSrc = 'http://icons.iconarchive.com/icons/aha-soft/large-business/512/Zoom-icon.png'">Click to change image</button>
+
 </div>
+
+<button (click)="changeImageForZoom()">Set Random Image</button>

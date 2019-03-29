@@ -17,7 +17,8 @@ similar concepts.
 
 Option | Default&#160;value | Description | Example value
 :---:|:---:|:---:|-
-imgSrc | *none* | (Required) Main image path. | 'https://www.myimage.com/imagename.jpg'
+zoomImage | *none* | (Required) Image that should appear in zoom window. | 'https://www.myimage.com/imagename.jpg'
+previewImage | *none* | (Required) Image to appear in the preview window. | 'https://www.myimage.com/imagename.jpg'
 imgStyle | *"'width:300px; height:300px'"* | CSS Style for the main image container | "'width:400px; height:400px'"
 resultStyle | *"'width:300px; height:300px'"* | CSS Style for the result container. Here result is a new window that appears only when you hover over the image | "'width:400px; height:400px'"
 lensStyle | *"'width:30px; height:30px'"* | CSS Style for the lense. It appers only on top of the main image when you hover over it  | "'width:40px; height:40px'"
