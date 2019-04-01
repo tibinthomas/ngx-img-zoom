@@ -22,7 +22,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   @Input() imgStyle;
   @Input() resultStyle;
   @Input() lensStyle;
-  @Input() containerStyle = 'position: absolute';
+  @Input() containerStyle;
   zoomImage;
   previewImage;
 
