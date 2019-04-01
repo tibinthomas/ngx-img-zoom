@@ -1,0 +1,14 @@
+::ng-deep .img-zoom-container.img-zoom-lens {
+    width: 100px;
+    height: 10px
+}
+
+::ng-deep #myresult {
+    width: 500px;
+    height: 500px
+}
+
+::ng-deep #myimage {
+    width: 500px;
+    height: 500px
+}
