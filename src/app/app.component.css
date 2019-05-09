@@ -1,3 +1,17 @@
+.title-center {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .title-right {
+    
+    text-align: right;
+  }
+
+  .title-icon {
+    width: 50px;
+}
+  
 ::ng-deep .img-zoom-lens {
     width: 90px;
     height: 10px

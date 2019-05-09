@@ -1,68 +1,94 @@
-<ngx-img-zoom class="center"
+<div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+        
+<div fxFlexFill fxLayout="column">
+
+
+        <mat-toolbar color="primary">
+                <span class="title-center">ngx-img-zoom</span>  
+                <span class="title-right">
+          <a target="_blank" href="https://github.com/tibinthomas/ngx-img-zoom">
+           <img class="title-icon" src="../assets/github-brands.svg">
+             </a>
+                </span>
+            </mat-toolbar>
+
+    <div fxLayout="column" fxFlex>
+
+<div fxFlex style="margin: 1%">
+        <div class="item item-1" fxFlex="50%">
+
+        <ngx-img-zoom class="center"
+        [zoomImageSrc]="zoomImageSrc"
+        [previewImageSrc]="previewImageSrc"
+        [imgStyle]="" 
+        [resultStyle]=""
+        [lensStyle]=""
+        [containerStyle]="">
+            </ngx-img-zoom>
+
+        </div>
+
+        <div class="item item-2" fxFlex="50%">
+                <button mat-mini-fab color="warn">Warn</button>
+        </div>
+       
+        <button mat-flat-button color="accent"  (click)="handleButton()"></button> 
+     </div>
+
+  
+
+</div>
+<footer fxLayout="column">
+    <div fxLayout="row">
+        <hr fxFlex="100">
+            </div>
+
+<p fxFlexAlign="center" >Copyright © {{ date }}
+     <strong>Tibin Thomas</strong></p> 
+</footer>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ngx-img-zoom class="center"
     [zoomImageSrc]="zoomImageSrc"
     [previewImageSrc]="previewImageSrc"
     [imgStyle]="" 
     [resultStyle]=""
     [lensStyle]=""
     [containerStyle]=""
-></ngx-img-zoom>
-
-
-
-<div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-</div>
-
-<button (click)="changeImageForZoom()">Set Random Image</button>
+></ngx-img-zoom> -->
