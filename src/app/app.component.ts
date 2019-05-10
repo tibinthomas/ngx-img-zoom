@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  previewImageSrc = 'http://lorempixel.com/400/200/';
+  previewImageSrc = 'http://lorempixel.com/g/1920/1920/';
   zoomImageSrc = this.previewImageSrc;
   date = new Date().getFullYear();
   changeImageForZoom() {
@@ -24,7 +24,8 @@ export class AppComponent {
     }
   }
   handleButton() {
-    this.previewImageSrc = `http://lorempixel.com/400/200?${Math.random()}`;
+    
+    this.previewImageSrc = `http://lorempixel.com/g/1920/1920/?${Math.random()}`;
     this.zoomImageSrc = this.previewImageSrc;
   }
 }
