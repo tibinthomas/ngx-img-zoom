@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  previewImageSrc = './assets/zoom0.png';
-  zoomImageSrc = './assets/zoom0.png';
-
+  previewImageSrc = 'http://lorempixel.com/g/1920/1920/';
+  zoomImageSrc = this.previewImageSrc;
+  date = new Date().getFullYear();
   changeImageForZoom() {
     const num1 = Math.floor(Math.random() * 4) + 1;
     if (num1 === 1) {
@@ -22,5 +22,10 @@ export class AppComponent {
     } else {
       this.zoomImageSrc = `./assets/zoom${num2}.jpg`
     }
+  }
+  handleButton() {
+    
+    this.previewImageSrc = `http://lorempixel.com/g/1920/1920/?${Math.random()}`;
+    this.zoomImageSrc = this.previewImageSrc;
   }
 }
