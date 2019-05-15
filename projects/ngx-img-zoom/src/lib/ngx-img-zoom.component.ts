@@ -1,5 +1,4 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
-import { trigger, transition, useAnimation } from '@angular/animations';
 
 @Component({
   selector: 'ngx-img-zoom',
@@ -141,6 +140,11 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
       x = x - window.pageXOffset;
       y = y - window.pageYOffset;
       return {x : x, y : y};
+  }
+
+  handleMouseLeave() {
+    this.hide = true;
+    this.renderer.setStyle(this.lens, 'visibility', 'hidden');
   }
 
 }

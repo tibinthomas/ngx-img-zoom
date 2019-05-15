@@ -1,5 +1,5 @@
 <div  class="img-zoom-container" #container>
-    <img id="myimage" [src]="previewImage" #img>
+    <img id="myimage" [src]="previewImage" #img (mouseleave)="handleMouseLeave()">
     <div  [ngClass]="{'hide': hide}" 
         id="myresult" 
         class="img-zoom-result" 
