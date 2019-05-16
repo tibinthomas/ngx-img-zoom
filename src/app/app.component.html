@@ -23,37 +23,38 @@
         <div class="item item-1" fxFlex="50%">
 
         <ngx-img-zoom class="center"
-        [zoomImageSrc]="zoomImageSrc"
-        [previewImageSrc]="previewImageSrc"
-        [imgStyle]="" 
-        [resultStyle]=""
-        [lensStyle]=""
+        [zoomImageSrc]="previewImageSrc"
+        [previewImageSrc]="zoomImageSrc"
+        [imgStyle]="_formData.iStyle"
+        [resultStyle]="_formData.rStyle"
+        [lensStyle]="_formData.lStyle"
         [containerStyle]="">
             </ngx-img-zoom>
           
         
         </div>
-
+        
         <div class="item item-2" fxFlex="100%" style="margin: 23%">
-            <button mat-raised-button color="primary" (click)=handleButton()>Random Image ∞ </button>
+            <app-tryityourself (formSubmited)="formData = $event" [randomUrl]="previewImageSrc"> 
+            <button type="button" mat-raised-button color="primary" (click)=handleButton() >∞ Random Image ∞</button>
+        </app-tryityourself>
+            <app-form></app-form>
         </div>
         
-     </div>
-
-  
-
-</div>
-
-
-
     </div>
+    
+    
+    
+</div>
+
+
+</div>
 </div>
 
 
 
 
-
-
+ 
 
 
 

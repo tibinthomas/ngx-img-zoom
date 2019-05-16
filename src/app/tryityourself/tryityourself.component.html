@@ -1,0 +1,29 @@
+<div   cdkDrag>
+  <mat-card>
+   <mat-card-header>
+        <mat-card-title>Try it Yourself</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="myForm"  (ngSubmit)="onSubmit(myForm)" #form="ngForm"> 
+        <mat-form-field class="full-width">
+          <input matInput formControlName="url" placeholder="Image Url">
+        </mat-form-field>
+        <ng-content></ng-content>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="iStyle" placeholder="Image Style" ></textarea>
+          
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="rStyle" placeholder="Result Style" ></textarea>
+          
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="lStyle" placeholder="Lens Style" ></textarea>
+        </mat-form-field>
+        
+        <mat-card-actions>
+          <button [disabled]="myForm.invalid"  mat-raised-button color="Basic">Submit</button>
+        </mat-card-actions>
+      </form>
+ </mat-card>
+ </div>
+  

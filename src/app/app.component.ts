@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
 import { NgxImgZoomService, NgxImgZoomMode } from 'ngx-img-zoom';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -15,6 +16,13 @@ export class AppComponent {
   previewImageSrc = 'http://lorempixel.com/g/1920/1920/';
   zoomImageSrc = this.previewImageSrc;
   date = new Date().getFullYear();
+  _formData: any = {};
+  
+
+  set formData(val) {
+    this._formData = val;
+    this.previewImageSrc = this.zoomImageSrc = val.url;
+  };
   changeImageForZoom() {
     const num1 = Math.floor(Math.random() * 4) + 1;
     if (num1 === 1) {
@@ -32,5 +40,11 @@ export class AppComponent {
   handleButton() {
     this.previewImageSrc = `http://lorempixel.com/g/1920/1920/?${Math.random()}`;
     this.zoomImageSrc = this.previewImageSrc;
+  
+
   }
+
+  email = new FormControl('', [Validators.required, Validators.email]);
+
+
 }

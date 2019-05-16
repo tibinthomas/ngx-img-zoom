@@ -1,0 +1,27 @@
+<div   cdkDrag>
+ <mat-card>
+  <mat-card-header>
+  
+    <mat-card-title>Feedback</mat-card-title>
+    
+  </mat-card-header>
+  
+   <form [formGroup]="myForm"  (ngSubmit)="onSubmit(myForm)" #form="ngForm"> 
+      <mat-form-field  class="full-width">
+          <mat-error *ngIf="email.invalid">Enter a valid email</mat-error>  
+               <input matInput formControlName="email" placeholder="Enter your email" touched> 
+        
+      </mat-form-field>
+      
+    <mat-form-field class="full-width">
+      <textarea matInput formControlName="message" placeholder="Comments" ></textarea>
+      <mat-error *ngIf="myForm.controls['message']?.errors?.minlength">Enter more characters</mat-error>
+    </mat-form-field>
+
+  <mat-card-actions>
+    <button [disabled]="myForm.invalid"  mat-raised-button color="Basic">Submit</button>
+  </mat-card-actions>
+</form>
+
+</mat-card>
+</div>
