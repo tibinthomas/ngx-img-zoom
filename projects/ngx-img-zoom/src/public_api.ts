@@ -5,3 +5,4 @@
 export * from './lib/ngx-img-zoom.service';
 export * from './lib/ngx-img-zoom.component';
 export * from './lib/ngx-img-zoom.module';
+export * from './lib/mode.enum';

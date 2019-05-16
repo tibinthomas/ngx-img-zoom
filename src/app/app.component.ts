@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
+import { NgxImgZoomService, NgxImgZoomMode } from 'ngx-img-zoom';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
+  constructor(private ngxImgZoom: NgxImgZoomService) {
+    this.ngxImgZoom.setZoomMode(NgxImgZoomMode.DoubleClickZoom);
+  }
   previewImageSrc = 'http://lorempixel.com/g/1920/1920/';
   zoomImageSrc = this.previewImageSrc;
   date = new Date().getFullYear();
@@ -24,7 +30,6 @@ export class AppComponent {
     }
   }
   handleButton() {
-    
     this.previewImageSrc = `http://lorempixel.com/g/1920/1920/?${Math.random()}`;
     this.zoomImageSrc = this.previewImageSrc;
   }
