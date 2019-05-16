@@ -5,14 +5,14 @@
 Still in early development, more features are planned and incoming. Should be in a working 
 state right now but it's not tested in lots of different setups yet.
 
-Demonstration of available features available [here](http://demo.purchasecommerce.com/).
+Demonstration of available features available [here](https://ngx-img-zoom.firebaseapp.com/).
 
 ## About
 
 ngx-img-zoom is inspired by [angular2-image-zoom](https://github.com/brtnshrdr/angular2-image-zoom) and 
 JQuery libraries such as [jQuery Zoom](http://www.jacklmoore.com/zoom/) and
 [elevateZoom-plus](http://igorlino.github.io/elevatezoom-plus/) but a pure Angular2+ implementation of
-similar concepts.
+similar concepts. Also it has Angular Universal support too.
 ## Available options
 
 Option | Default&#160;value | Description | Example value
