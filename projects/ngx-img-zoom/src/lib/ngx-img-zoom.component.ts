@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { NgxImgZoomService } from './ngx-img-zoom.service';
+import { NgxImgZoomMode } from './mode.enum';
 @Component({
   selector: 'ngx-img-zoom',
   templateUrl: './ngx-img-zoom.component.html',
@@ -17,7 +18,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     private ngxZoomService: NgxImgZoomService
   ) { }
 
-  zoomMode = this.ngxZoomService.zoomMode;
+  zoomMode: NgxImgZoomMode = this.ngxZoomService.zoomMode;
   @ViewChild('img') imgElmRef: ElementRef;
   @ViewChild('result') resultElmRef: ElementRef;
   @ViewChild('container') containerElmRef: ElementRef;

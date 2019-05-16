@@ -1,4 +1,4 @@
-export enum NgxImgZoomMode {
+export const enum NgxImgZoomMode {
     HoverZoom,
     DoubleClickZoom,
     SingleClickZoom,
