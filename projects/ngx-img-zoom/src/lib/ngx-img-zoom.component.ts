@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, Input, HostListener } from '@angular/core';
 import { NgxImgZoomService } from './ngx-img-zoom.service';
 import { NgxImgZoomMode } from './mode.enum';
 @Component({
@@ -16,19 +16,34 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   constructor(
     private renderer: Renderer2,
     private ngxZoomService: NgxImgZoomService
-  ) { }
+    ) { }
 
-  zoomMode: NgxImgZoomMode = this.ngxZoomService.zoomMode;
-  @ViewChild('img') imgElmRef: ElementRef;
-  @ViewChild('result') resultElmRef: ElementRef;
-  @ViewChild('container') containerElmRef: ElementRef;
+    zoomMode: NgxImgZoomMode = this.ngxZoomService.zoomMode;
+    @ViewChild('img') imgElmRef: ElementRef;
+    @ViewChild('result') resultElmRef: ElementRef;
+    @ViewChild('container') containerElmRef: ElementRef;
 
-  @Input() imgStyle;
-  @Input() resultStyle;
-  @Input() lensStyle;
-  @Input() containerStyle;
-  zoomImage;
-  previewImage;
+    @Input() imgStyle;
+    @Input() resultStyle;
+    @Input() lensStyle;
+    @Input() containerStyle;
+    zoomImage;
+    previewImage;
+
+  @HostListener('window:scroll', ['$event']) onscroll(event) {
+    this.hide = true;
+    this.renderer.setStyle(this.lens, 'visibility', 'hidden');
+  }
+  @HostListener('window:click', ['$event.target']) onclick(event) {
+    this.hide = true;
+    this.renderer.setStyle(this.lens, 'visibility', 'hidden');
+  }
+
+
+  // @HostListener('mouseout', ['$event']) mouseout(event) {
+  //   this.hide = true;
+  //   this.renderer.setStyle(this.lens, 'visibility', 'hidden');
+  // }
 
   @Input('zoomImageSrc') set _imgSrc(val) {
     this.zoomImage = val;
@@ -44,7 +59,6 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    
   }
 
   ngAfterViewInit() {
@@ -57,6 +71,10 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.container, 'style', <string>this.containerStyle);
     this.imageZoom();
     this.renderer.setStyle(this.lens, 'visibility', 'hidden');
+    this.renderer.listen(this.img, 'mouseout', () => {
+      this.hide = true;
+      this.renderer.setStyle(this.lens, 'visibility', 'hidden');
+     });
   }
 
 
