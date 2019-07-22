@@ -130,7 +130,9 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
         this.renderer.setStyle(this.lens, 'visibility', 'hidden');
       } else {
         this.hide = false;
-        this.renderer.setStyle(this.lens, 'visibility', 'visible');
+        if (this.showResult) {
+          this.renderer.setStyle(this.lens, 'visibility', 'visible');
+        }
       }
 
       if (x < 0) {
