@@ -12,7 +12,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   hide = true;
   _triggerAnimationIn = false;
   notFirstTime = false;
-
+  showResult = false;
   constructor(
     private renderer: Renderer2,
     private ngxZoomService: NgxImgZoomService
@@ -56,6 +56,12 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
 
   @Input('previewImageSrc') set _zoomImage(val) {
     this.previewImage = val;
+    this.showResult = false;
+    const image = new Image();
+    image.src = this.previewImage;
+    image.onload = () => {
+      this.showResult = true;
+    };
   }
 
   ngOnInit() {
