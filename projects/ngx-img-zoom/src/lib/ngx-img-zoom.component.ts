@@ -39,12 +39,6 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     this.renderer.setStyle(this.lens, 'visibility', 'hidden');
   }
 
-
-  // @HostListener('mouseout', ['$event']) mouseout(event) {
-  //   this.hide = true;
-  //   this.renderer.setStyle(this.lens, 'visibility', 'hidden');
-  // }
-
   @Input('zoomImageSrc') set _imgSrc(val) {
     this.zoomImage = val;
     if (this.notFirstTime === true) {
@@ -58,7 +52,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     this.previewImage = val;
     this.showResult = false;
     const image = new Image();
-    image.src = this.previewImage;
+    image.src = this.zoomImage;
     image.onload = () => {
       this.showResult = true;
     };
