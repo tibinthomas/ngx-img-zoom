@@ -42,6 +42,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
 
     _lensStyle;
     @Input() set lensStyle(val) {
+      this.imageZoom();
       this._lensStyle = val;
     }
     get lensStyle() {
