@@ -23,9 +23,30 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     @ViewChild('result') resultElmRef: ElementRef;
     @ViewChild('container') containerElmRef: ElementRef;
 
-    @Input() imgStyle;
-    @Input() resultStyle;
-    @Input() lensStyle;
+
+    _imgStyle;
+    @Input() set imgStyle(val) {
+      this._imgStyle = val;
+    }
+    get imgStyle() {
+      return this._imgStyle;
+    }
+
+    _resultStyle;
+    @Input() set resultStyle(val) {
+      this._resultStyle = val;
+    }
+    get resultStyle() {
+      return this._resultStyle;
+    }
+
+    _lensStyle;
+    @Input() set lensStyle(val) {
+      this._lensStyle = val;
+    }
+    get lensStyle() {
+      return this._lensStyle;
+    }
     @Input() containerStyle;
     zoomImage;
     previewImage;
