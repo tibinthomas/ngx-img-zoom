@@ -13,15 +13,16 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   _triggerAnimationIn = false;
   notFirstTime = false;
   showResult = false;
+  lastEventBeforeTheWheel;
   constructor(
     private renderer: Renderer2,
     private ngxZoomService: NgxImgZoomService
     ) { }
 
     zoomMode: NgxImgZoomMode = this.ngxZoomService.zoomMode;
-    @ViewChild('img') imgElmRef: ElementRef;
-    @ViewChild('result') resultElmRef: ElementRef;
-    @ViewChild('container') containerElmRef: ElementRef;
+    @ViewChild('img', { static: false }) imgElmRef: ElementRef;
+    @ViewChild('result', { static: false }) resultElmRef: ElementRef;
+    @ViewChild('container', { static: false }) containerElmRef: ElementRef;
 
 
     _imgStyle;
@@ -85,6 +86,18 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
+  handleZoomOutOnMouseWheelUp(event) {
+    this.lensStyle = 'height: 40px; width: 40px;';
+    this.imageZoom();
+    this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lense unchanged.
+  }
+
+  handleZoomInOnMouseWheelUp(event) {
+    this.lensStyle = 'height: 100px; width: 100px';
+    this.imageZoom();
+    this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lense unchanged.
+  }
+
   ngAfterViewInit() {
     this.img = this.imgElmRef.nativeElement;
     this.result = this.resultElmRef.nativeElement;
@@ -104,16 +117,18 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
 
   imageZoom() {
     /*create lens:*/
-    this.lens = this.renderer.createElement('DIV');
-    this.renderer.addClass(this.lens, 'img-zoom-lens');
+    if (!this.lens) {
+      this.lens = this.renderer.createElement('DIV');
+      this.renderer.addClass(this.lens, 'img-zoom-lens');
+      this.renderer.insertBefore(this.img.parentElement, this.lens, this.img);
+    }
     this.renderer.setAttribute(this.lens, 'style', <string>this.lensStyle);
 
     /*insert lens:*/
-    this.renderer.insertBefore(this.img.parentElement, this.lens, this.img);
 
     /*calculate the ratio between result DIV and lens:*/
-    this.cx = this.result.offsetWidth / this.lens.offsetWidth;
-    this.cy = this.result.offsetHeight / this.lens.offsetHeight;
+      this.cx = this.result.offsetWidth / this.lens.offsetWidth;
+      this.cy = this.result.offsetHeight / this.lens.offsetHeight;
 
     /*set background properties for the result DIV:*/
     this.renderer.setStyle(this.result, 'backgroundImage', "url('" + this.zoomImage + "')");
@@ -130,6 +145,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   }
 
   moveLens(e) {
+    this.lastEventBeforeTheWheel = e;
       let pos, x, y;
       /*prevent any other actions that may occur when moving over the image:*/
       e.preventDefault();

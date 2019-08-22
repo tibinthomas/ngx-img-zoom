@@ -9,7 +9,7 @@ import { FormControl, Validators, FormGroup, NgForm } from '@angular/forms';
 export class FormComponent implements OnInit {
   myForm: FormGroup;
   constructor() {}
-  @ViewChild('form') formRef: NgForm;
+  @ViewChild('form', { static: false }) formRef: NgForm;
    get email() {
     return this.myForm.controls['email'];
   };
