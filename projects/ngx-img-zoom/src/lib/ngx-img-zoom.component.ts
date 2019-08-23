@@ -167,7 +167,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
 
 
       /*prevent the lens from being positioned outside the image:*/
-      if (x > this.img.width - this.lens.offsetWidth) {
+      if (x > this.img.width - this.lens.offsetWidth / 2) {
         x = this.img.width - this.lens.offsetWidth;
 
         this.hide = true;
@@ -179,29 +179,32 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
         }
       }
 
-      if (x < 0) {
+      if (x < 0 - this.lens.offsetHeight / 2) {
         x = 0;
         this.hide = true;
         this.renderer.setStyle(this.lens, 'visibility', 'hidden');
       }
 
-      if (y > this.img.height - this.lens.offsetHeight) {
+      if (y > this.img.height - this.lens.offsetHeight / 2) {
         y = this.img.height - this.lens.offsetHeight;
         this.hide = true;
         this.renderer.setStyle(this.lens, 'visibility', 'hidden');
       }
 
-      if (y < 0) {
+      if (y < 0 - this.lens.offsetHeight / 2) {
         y = 0;
         this.hide = true;
         this.renderer.setStyle(this.lens, 'visibility', 'hidden');
       }
 
       /*set the position of the lens:*/
-      this.renderer.setStyle(this.lens, 'left', x + 'px');
-      this.renderer.setStyle(this.lens, 'top', y + 'px');
-      /*display what the lens 'sees':*/
-      this.renderer.setStyle(this.result, 'backgroundPosition', '-' + (x * this.cx) + 'px -' + (y * this.cy) + 'px');
+      if ((y <= this.img.height - this.lens.offsetHeight) && (x <= this.img.width - this.lens.offsetWidth) && y > 0 && x > 0) {
+        this.renderer.setStyle(this.lens, 'left', x + 'px');
+        this.renderer.setStyle(this.lens, 'top', y + 'px');
+        /*display what the lens 'sees':*/
+        this.renderer.setStyle(this.result, 'backgroundPosition', '-' + (x * this.cx) + 'px -' + (y * this.cy) + 'px');
+      }
+  
     }
 
   getCursorPos(e) {
