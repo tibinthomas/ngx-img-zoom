@@ -14,10 +14,14 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   notFirstTime = false;
   showResult = false;
   lastEventBeforeTheWheel;
+  zoomBreakPoints;
+  zoomIndex = 0;
   constructor(
     private renderer: Renderer2,
     private ngxZoomService: NgxImgZoomService
-    ) { }
+    ) {
+      this.zoomBreakPoints = this.ngxZoomService.zoomBreakPoints;
+    }
 
     zoomMode: NgxImgZoomMode = this.ngxZoomService.zoomMode;
     @ViewChild('img', { static: false }) imgElmRef: ElementRef;
@@ -86,16 +90,22 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  handleZoomOutOnMouseWheelUp(event) {
-    this.lensStyle = 'height: 40px; width: 40px;';
+  handleZoomOutOnMouseWheelUp() {
+    if (this.zoomBreakPoints.length > this.zoomIndex) {
+      this.zoomIndex++;
+    }
+    this.lensStyle = `height: ${this.zoomBreakPoints[this.zoomIndex].h}px; width: ${this.zoomBreakPoints[this.zoomIndex].w}px;`;
     this.imageZoom();
-    this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lense unchanged.
+    this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lens unchanged.
   }
 
-  handleZoomInOnMouseWheelUp(event) {
-    this.lensStyle = 'height: 100px; width: 100px';
+  handleZoomInOnMouseWheelUp() {
+    if (this.zoomIndex > 0) {
+      this.zoomIndex--;
+    }
+    this.lensStyle = `height: ${this.zoomBreakPoints[this.zoomIndex].h}px; width: ${this.zoomBreakPoints[this.zoomIndex].w}px;`;
     this.imageZoom();
-    this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lense unchanged.
+    this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lens unchanged.
   }
 
   ngAfterViewInit() {

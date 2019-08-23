@@ -1,4 +1,4 @@
-// import { NgxImgZoomService, NgxImgZoomMode } from 'ngx-img-zoom';
+import { NgxImgZoomService, NgxImgZoomMode } from 'ngx-img-zoom';
 import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
@@ -7,9 +7,10 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  // constructor(private ngxImgZoom: NgxImgZoomService) {
-  //   this.ngxImgZoom.setZoomMode(NgxImgZoomMode.DoubleClickZoom);
-  // }
+  constructor(private ngxImgZoom: NgxImgZoomService) {
+    // this.ngxImgZoom.setZoomMode(NgxImgZoomMode.DoubleClickZoom);
+    this.ngxImgZoom.setZoomBreakPoints([{w: 100, h: 100}, {w: 150, h: 150}, {w: 200, h: 200}, {w: 250, h: 250}, {w: 300, h: 300}]);
+  }
   previewImageSrc = 'http://lorempixel.com/g/1920/1920/';
   zoomImageSrc = this.previewImageSrc;
   date = new Date().getFullYear();
