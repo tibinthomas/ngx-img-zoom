@@ -29,6 +29,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     @ViewChild('container', { static: false }) containerElmRef: ElementRef;
 
 
+    @Input() enableZoom = false;
     _imgStyle;
     @Input() set imgStyle(val) {
       this._imgStyle = val;
@@ -91,21 +92,25 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   }
 
   handleZoomOutOnMouseWheelUp() {
-    if (this.zoomBreakPoints.length > this.zoomIndex) {
-      this.zoomIndex++;
+    if (this.enableZoom) {
+      if (this.zoomBreakPoints.length > this.zoomIndex) {
+        this.zoomIndex++;
+      }
+      this.lensStyle = `height: ${this.zoomBreakPoints[this.zoomIndex].h}px; width: ${this.zoomBreakPoints[this.zoomIndex].w}px;`;
+      this.imageZoom();
+      this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lens unchanged.
     }
-    this.lensStyle = `height: ${this.zoomBreakPoints[this.zoomIndex].h}px; width: ${this.zoomBreakPoints[this.zoomIndex].w}px;`;
-    this.imageZoom();
-    this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lens unchanged.
   }
 
   handleZoomInOnMouseWheelUp() {
-    if (this.zoomIndex > 0) {
-      this.zoomIndex--;
+    if (this.enableZoom) {
+      if (this.zoomIndex > 0) {
+        this.zoomIndex--;
+      }
+      this.lensStyle = `height: ${this.zoomBreakPoints[this.zoomIndex].h}px; width: ${this.zoomBreakPoints[this.zoomIndex].w}px;`;
+      this.imageZoom();
+      this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lens unchanged.
     }
-    this.lensStyle = `height: ${this.zoomBreakPoints[this.zoomIndex].h}px; width: ${this.zoomBreakPoints[this.zoomIndex].w}px;`;
-    this.imageZoom();
-    this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lens unchanged.
   }
 
   ngAfterViewInit() {
@@ -130,6 +135,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     if (!this.lens) {
       this.lens = this.renderer.createElement('DIV');
       this.renderer.addClass(this.lens, 'img-zoom-lens');
+      this.renderer.addClass(this.lens, 'cursor-crosshair');
       this.renderer.insertBefore(this.img.parentElement, this.lens, this.img);
     }
     this.renderer.setAttribute(this.lens, 'style', <string>this.lensStyle);
@@ -169,42 +175,30 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
       /*prevent the lens from being positioned outside the image:*/
       if (x > this.img.width - this.lens.offsetWidth / 2) {
         x = this.img.width - this.lens.offsetWidth;
-
         this.hide = true;
         this.renderer.setStyle(this.lens, 'visibility', 'hidden');
-      } else {
-        this.hide = false;
-        if (this.showResult) {
-          this.renderer.setStyle(this.lens, 'visibility', 'visible');
-        }
-      }
-
-      if (x < 0 - this.lens.offsetHeight / 2) {
+      } else if (x < 0 - this.lens.offsetHeight / 2) {
         x = 0;
         this.hide = true;
         this.renderer.setStyle(this.lens, 'visibility', 'hidden');
-      }
-
-      if (y > this.img.height - this.lens.offsetHeight / 2) {
+      } else if (y > this.img.height - this.lens.offsetHeight / 2) {
         y = this.img.height - this.lens.offsetHeight;
         this.hide = true;
         this.renderer.setStyle(this.lens, 'visibility', 'hidden');
-      }
-
-      if (y < 0 - this.lens.offsetHeight / 2) {
+      } else if (y < 0 - this.lens.offsetHeight / 2) {
         y = 0;
         this.hide = true;
         this.renderer.setStyle(this.lens, 'visibility', 'hidden');
-      }
-
-      /*set the position of the lens:*/
-      if ((y <= this.img.height - this.lens.offsetHeight) && (x <= this.img.width - this.lens.offsetWidth) && y > 0 && x > 0) {
-        this.renderer.setStyle(this.lens, 'left', x + 'px');
-        this.renderer.setStyle(this.lens, 'top', y + 'px');
-        /*display what the lens 'sees':*/
-        this.renderer.setStyle(this.result, 'backgroundPosition', '-' + (x * this.cx) + 'px -' + (y * this.cy) + 'px');
-      }
-  
+      } else if ((y <= this.img.height - this.lens.offsetHeight) && (x <= this.img.width - this.lens.offsetWidth) && y > 0 && x > 0) {
+          this.hide = false;
+          if (this.showResult) {
+            this.renderer.setStyle(this.lens, 'left', x + 'px');
+            this.renderer.setStyle(this.lens, 'top', y + 'px');
+            /*display what the lens 'sees':*/
+            this.renderer.setStyle(this.result, 'backgroundPosition', '-' + (x * this.cx) + 'px -' + (y * this.cy) + 'px');
+            this.renderer.setStyle(this.lens, 'visibility', 'visible');
+          }
+        }
     }
 
   getCursorPos(e) {
