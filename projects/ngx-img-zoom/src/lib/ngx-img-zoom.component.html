@@ -1,6 +1,8 @@
+
 <div  class="img-zoom-container" #container>
     <img id="myimage" [src]="previewImage" #img (mouseleave)="handleMouseLeave()" 
 	libMouseWheel (mouseWheelUp)="handleZoomInOnMouseWheelUp()" (mouseWheelDown)="handleZoomOutOnMouseWheelUp()">
+
     <div [ngClass]="{'hide': hide || !showResult}" 
         id="myresult" 
         class="img-zoom-result" 
