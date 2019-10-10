@@ -99,7 +99,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
 
   handleZoomOutOnMouseWheelUp() {
     if (this.enableZoom) {
-      if (this.zoomBreakPoints.length > this.zoomIndex) {
+      if (this.zoomBreakPoints.length - 1 > this.zoomIndex) {
         this.zoomIndex++;
       }
       this.lensStyle = `height: ${this.zoomBreakPoints[this.zoomIndex].h}px; width: ${this.zoomBreakPoints[this.zoomIndex].w}px;`;
