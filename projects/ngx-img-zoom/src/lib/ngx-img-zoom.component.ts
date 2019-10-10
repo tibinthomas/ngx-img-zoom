@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, Input, HostListener, OnDestroy } from '@angular/core';
 import { NgxImgZoomService } from './ngx-img-zoom.service';
 import { NgxImgZoomMode } from './mode.enum';
 @Component({
@@ -6,7 +6,7 @@ import { NgxImgZoomMode } from './mode.enum';
   templateUrl: './ngx-img-zoom.component.html',
   styleUrls: ['./ngx-img-zoom.component.css'],
 })
-export class NgxImgZoomComponent implements OnInit, AfterViewInit {
+export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
 
   img; lens; result; cx; cy; container;
   hide = true;
@@ -16,6 +16,12 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
   lastEventBeforeTheWheel;
   zoomBreakPoints;
   zoomIndex = 0;
+
+  lensMouseMoveListener;
+  imgMouseMoveListener;
+  imgTouchMoveListener;
+  lensTouchMoveListener;
+  
   constructor(
     private renderer: Renderer2,
     private ngxZoomService: NgxImgZoomService
@@ -122,13 +128,29 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     this.renderer.setAttribute(this.result, 'style', <string>this.resultStyle);
     this.renderer.setAttribute(this.container, 'style', <string>this.containerStyle);
     this.imageZoom();
+    
+    /*execute a function when someone moves the cursor over the image, or the lens:*/
+    this.lensMouseMoveListener = this.renderer.listen(this.lens, 'mousemove', this.moveLens.bind(this));
+    this.imgMouseMoveListener = this.renderer.listen(this.img, 'mousemove', this.moveLens.bind(this));
+
+    /*and also for touch screens:*/
+    this.imgTouchMoveListener = this.renderer.listen(this.img, 'touchmove', this.moveLens.bind(this));
+    this.lensTouchMoveListener = this.renderer.listen(this.lens, 'touchmove', this.moveLens.bind(this));
+
     this.renderer.setStyle(this.lens, 'visibility', 'hidden');
     this.renderer.listen(this.img, 'mouseout', () => {
       this.hide = true;
       this.renderer.setStyle(this.lens, 'visibility', 'hidden');
      });
+
   }
 
+  ngOnDestroy(){
+    this.lensMouseMoveListener && this.lensMouseMoveListener();
+    this.imgMouseMoveListener && this.imgMouseMoveListener();
+    this.imgTouchMoveListener && this.imgTouchMoveListener();
+    this.lensTouchMoveListener && this.lensTouchMoveListener();
+  }
 
   imageZoom() {
     /*create lens:*/
@@ -151,13 +173,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit {
     this.renderer.setStyle(this.result, 'backgroundSize', (this.img.width * this.cx) + 'px ' + (this.img.height * this.cy) + 'px');
     // this.renderer.setStyle(this.img.parentElement, 'position', 'relative')
 
-    /*execute a function when someone moves the cursor over the image, or the lens:*/
-    this.renderer.listen(this.lens, 'mousemove', this.moveLens.bind(this));
-    this.renderer.listen(this.img, 'mousemove', this.moveLens.bind(this));
-
-    /*and also for touch screens:*/
-    this.renderer.listen(this.img, 'touchmove', this.moveLens.bind(this));
-    this.renderer.listen(this.lens, 'touchmove', this.moveLens.bind(this));
+    
   }
 
   moveLens(e) {
