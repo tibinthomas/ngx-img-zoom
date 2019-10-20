@@ -137,11 +137,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
     this.imgTouchMoveListener = this.renderer.listen(this.img, 'touchmove', this.moveLens.bind(this));
     this.lensTouchMoveListener = this.renderer.listen(this.lens, 'touchmove', this.moveLens.bind(this));
 
-
-    this.renderer.listen(this.img, 'mouseout', () => {
-      this.hide = true;
-      this.renderer.setStyle(this.lens, 'visibility', 'hidden');
-     });
+    this.renderer.setStyle(this.lens, 'visibility', 'hidden');	
   }
 
   ngOnDestroy(){
