@@ -9,7 +9,7 @@ import { NgxImgZoomMode } from './mode.enum';
 export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
 
   img; lens; result; cx; cy; container;
-  hide = true;
+  hideResultDiv = true;
   _triggerAnimationIn = false;
   notFirstTime = false;
   showResult = false;
@@ -67,11 +67,11 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
     previewImage;
 
   @HostListener('window:scroll', ['$event']) onscroll(event) {
-    this.hide = true;
+    this.hideResultDiv = true;
     this.renderer.setStyle(this.lens, 'visibility', 'hidden');
   }
   @HostListener('window:click', ['$event.target']) onclick(event) {
-    this.hide = true;
+    this.hideResultDiv = true;
     this.renderer.setStyle(this.lens, 'visibility', 'hidden');
   }
 
@@ -98,7 +98,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleZoomOutOnMouseWheelUp() {
-    if (this.enableZoom) {
+    if (this.enableZoom && this.zoomBreakPoints) {
       if (this.zoomBreakPoints.length - 1 > this.zoomIndex) {
         this.zoomIndex++;
       }
@@ -109,11 +109,12 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleZoomInOnMouseWheelUp() {
-    if (this.enableZoom) {
+    if (this.enableZoom && this.zoomBreakPoints) {
       if (this.zoomIndex > 0) {
         this.zoomIndex--;
       }
-      this.lensStyle = `height: ${this.zoomBreakPoints[this.zoomIndex].h}px; width: ${this.zoomBreakPoints[this.zoomIndex].w}px;`;
+      this.lensStyle = `height: ${this.zoomBreakPoints[this.zoomIndex].h}px;
+                        width: ${this.zoomBreakPoints[this.zoomIndex].w}px;`;
       this.imageZoom();
       this.moveLens(this.lastEventBeforeTheWheel); // Called to keep the position of the lens unchanged.
     }
@@ -138,6 +139,12 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
     this.lensTouchMoveListener = this.renderer.listen(this.lens, 'touchmove', this.moveLens.bind(this));
 
     this.renderer.setStyle(this.lens, 'visibility', 'hidden');	
+
+    if (this.enableZoom && !this.zoomBreakPoints) {
+      console.warn(
+        "The enableZoom options only works if zoomBreakPoints are passed using NgxImgZoomService. Kindly refer the Docs."
+      );
+    }
   }
 
   ngOnDestroy(){
@@ -194,7 +201,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
       } else if (y < 0 ) {
         y = 0;
       } 
-      this.hide = false;
+      this.hideResultDiv = false;
       if (this.showResult) {
         this.renderer.setStyle(this.lens, 'left', x + 'px');
         this.renderer.setStyle(this.lens, 'top', y + 'px');
@@ -219,7 +226,7 @@ export class NgxImgZoomComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleMouseLeave() {
-    this.hide = true;
+    this.hideResultDiv = true;
     this.renderer.setStyle(this.lens, 'visibility', 'hidden');
   }
 

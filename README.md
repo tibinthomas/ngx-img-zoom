@@ -21,6 +21,7 @@ imgStyle | *"'width:300px; height:300px'"* | CSS Style for the main image contai
 resultStyle | *"'width:300px; height:300px'"* | CSS Style for the result container. Here result is a new window that appears only when you hover over the image | "'width:400px; height:400px'"
 lensStyle | *"'width:30px; height:30px'"* | CSS Style for the lense. It appers only on top of the main image when you hover over it  | "'width:40px; height:40px'"
 containerStyle | *'position: absolute'* | CSS Style for the container that holds all the 3 elements mentioned above  | "'width:400px; height:400px'"
+enableZoom | *false* | To enable zoom *Note - pass zoom breakpoint using NgxImgZoomService as given below in example | "true"
 
 
 ## Installation
@@ -68,10 +69,10 @@ Once the library is imported, you can use its component in your Angular applicat
 <ngx-img-zoom
     [imgSrc]="imgSrc" 
     [imgStyle]="'width:515px; height:515px; bottom:0;  left:0;  right:0;  top:0;  margin:0 auto; border:1px solid #dcdcdc;'" 
-    [resultStyle]="`width:824px; height:824px; background-repeat: no-repeat; z-index: 2; position:absolute;
+    [resultStyle]="'width:824px; height:824px; background-repeat: no-repeat; z-index: 2; position:absolute;
                    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-                    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); top: 0;left: 100%;`"
-    [lensStyle]="'width:155px; height:155px"
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); top: 0;left: 100%;'"
+    [lensStyle]="'width:155px; height:155px'"
     [containerStyle]=""
 ></ngx-img-zoom>
 ```
