@@ -3,7 +3,7 @@
     <img id="myimage" class='cursor-crosshair' [src]="previewImage" #img (mouseleave)="handleMouseLeave()" 
 	libMouseWheel (mouseWheelUp)="handleZoomInOnMouseWheelUp()" (mouseWheelDown)="handleZoomOutOnMouseWheelUp()">
 
-    <div [ngClass]="{'hide': hide || !showResult}" 
+    <div [ngStyle]="{'visibility': (hideResultDiv || !showResult) ? 'hidden' : '' }" 
         id="myresult" 
         class="img-zoom-result" 
         #result>

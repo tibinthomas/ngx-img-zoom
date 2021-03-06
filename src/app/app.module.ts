@@ -12,13 +12,10 @@ import { MatInputModule } from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
-
-
-
 import { AppComponent } from './app.component';
 
 // Lib imports
-import { NgxImgZoomModule } from 'ngx-img-zoom';
+import { NgxImgZoomModule } from "../../projects/ngx-img-zoom/src/public_api";
 import { FormComponent } from './form/form.component';
 import { TryityourselfComponent } from './tryityourself/tryityourself.component';
 
